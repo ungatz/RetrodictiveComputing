@@ -1,4 +1,5 @@
 {-# LANGUAGE ViewPatterns #-}
+{-# LANGUAGE UnicodeSyntax #-}
 
 module Synthesis where
 
@@ -21,7 +22,8 @@ viewL xs = (init xs, last xs)
 -- negate bit i 
 
 notI :: Int -> [Bool] -> [Bool]
-notI i as = xs ++ (not y : ys) where (xs,y:ys) = splitAt i as
+notI i as = xs ++ (not y : ys)
+  where (xs,y:ys) = splitAt i as
 
 notIs :: [Bool] -> [Int] -> [Bool]
 notIs = foldr notI
@@ -41,7 +43,7 @@ allBools n = map (False :) bs ++ map (True :) bs
 synthesisStep :: [Var s v] -> [Bool] -> [Bool] -> (OP s v, [Bool] -> [Bool])
 synthesisStep vars xbools ybools
   | xbools == ybools = (S.empty, id)
-  | otherwise = 
+  | otherwise =
   let
     x0 = elemIndices False xbools
     x1 = elemIndices True  xbools
@@ -65,12 +67,11 @@ synthesisStep vars xbools ybools
              ]
   in (S.fromList (toff01 ++ toff10), f01 . f10)
 
--- Initialize; repeat synthesis; extract circuit
+-- -- Initialize; repeat synthesis; extract circuit
 
-synthesisLoop :: [Var s v] -> OP s v -> ([Bool] -> [Bool]) ->
-                 [[Bool]] -> OP s v
-synthesisLoop xs circ f [] = circ
-synthesisLoop xs circ f (xbools : rest) = 
+synthesisLoop :: [Var s v] -> OP s v -> ([Bool] -> [Bool]) -> [[Bool]] -> OP s v
+synthesisLoop _ circ _ [] = circ
+synthesisLoop xs circ f (xbools : rest) =
   let ybools = f xbools
       (circg,g) = synthesisStep xs xbools ybools
   in synthesisLoop xs (circg >< circ) (g . f) rest
@@ -112,6 +113,38 @@ n=4 12870
 synthesisGrover :: Int -> [Var s v] -> Integer -> OP s v
 synthesisGrover n (viewL -> (xs,y)) u =
   S.singleton $ GToffoli (fromInt n u) xs y
-  
 
-------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+-- synthesis :: Int → [Var s v] → [Bool → Bool] → OP s v
+-- synthesis n xs f =
+
+-- get c s.t T.c = vf
+-- getC ∷ Int → ([Bool] → [Bool]) → [Bool]
+-- getC n f = getCHelper vf mat where
+--   mat = generateT (allBools n) (allBools n)
+
+generateT :: [[Bool]] -> [[Bool]] -> [[Bool]]
+generateT []     [] = [[]]
+generateT []     _  = [[]]
+generateT _      [] = [[]]
+generateT (x:xs) u  = dotProduct x u : generateT xs u
+
+dotProduct :: [Bool] -> [[Bool]] -> [Bool]
+dotProduct _ []     = []
+dotProduct x (u:us) = and (xi 0 x (ones u 0)) : dotProduct x us
+
+ones :: [Bool] -> Int -> [Int]
+ones  []    idx = []
+ones (u:us) idx = if u
+                  then idx : ones us (idx + 1)
+                  else ones us (idx + 1)
+
+xi :: Int -> [Bool] -> [Int] -> [Bool]
+xi _   []     _    = []
+xi idx (x:xs) ones = if idx `elem` ones
+                     then x : xi (idx + 1) xs ones
+                     else xi (idx + 1) xs ones
+
+-- applying the isomorphism Φ to f to get ANF
+-- represent the ANF in terms of GToffili

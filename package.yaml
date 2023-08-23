@@ -32,6 +32,7 @@ dependencies:
 - bitwise
 - mtl
 - timeit
+- containers
 
 library:
   source-dirs:

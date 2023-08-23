@@ -1,5 +1,4 @@
 module Test.Synthesis where
-
 import Control.Monad.ST (runST)
 import Data.STRef (newSTRef)
 
@@ -33,14 +32,14 @@ test3 = putStrLn $ runST $ do
   x2 <- newSTRef "x3"
   let op = synthesis 3 [x0,x1,x2] f
   showOP op 
-  where f [False,False,False] = [True,True,True]     -- 7
+  where f [False,False,False] = [False,False,False]  -- 0
         f [False,False,True]  = [False,False,False]  -- 0
-        f [False,True,False]  = [True,True,False]    -- 6
-        f [False,True,True]   = [True,False,False]   -- 4
-        f [True,False,False]  = [False,True,False]   -- 2 
-        f [True,False,True]   = [False,False,True]   -- 1
-        f [True,True,False]   = [False,True,True]    -- 3
-        f [True,True,True]    = [True,False,True]    -- 5
+        f [False,True,False]  = [True,True,True]     -- 1
+        f [False,True,True]   = [False,False,False]  -- 0
+        f [True,False,False]  = [True,True,True]     -- 1
+        f [True,False,True]   = [False,False,False]  -- 0
+        f [True,True,False]   = [False,False,False]  -- 0
+        f [True,True,True]    = [True,True,True]     -- 1
 
 test4 :: Int -> IO ()
 test4 n = putStrLn $ runST $ do
