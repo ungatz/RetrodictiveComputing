@@ -5,7 +5,7 @@ import Data.STRef (newSTRef)
 import Value (Var, Value(..), newVar, newVars, fromInt)
 import FormulaRepr (FormulaRepr(..))
 import Circuits (showOP)
-import Synthesis (synthesis)
+import Synthesis (synthesis, synthesisNew)
 
 ----------------------------------------------------------------------------------------
 -- Some test cases of the synthesis algorithm
@@ -25,6 +25,23 @@ test2 = putStrLn $ runST $ do
   let op = synthesis 3 [x2,x1,x0] (\[a,b,c] -> [a,b,(a&&b)/=c])
   showOP op
 
+
+testNew :: IO ()
+testNew = putStrLn $ runST $ do
+  x0 <- newSTRef "x0"
+  x1 <- newSTRef "x1"
+  x2 <- newSTRef "x2"
+  let op = synthesisNew 3 [x2,x1,x0] g
+  showOP op
+  where g [False,False,False] = [False]
+        g [False,False,True]  = [False]
+        g [False,True,False]  = [True]
+        g [False,True,True]   = [False]
+        g [True,False,False]  = [True]
+        g [True,False,True]   = [False]
+        g [True,True,False]   = [False]
+        g [True,True,True]    = [True]
+
 test3 :: IO () 
 test3 = putStrLn $ runST $ do
   x0 <- newSTRef "x1"
@@ -32,14 +49,14 @@ test3 = putStrLn $ runST $ do
   x2 <- newSTRef "x3"
   let op = synthesis 3 [x0,x1,x2] f
   showOP op 
-  where f [False,False,False] = [False,False,False]  -- 0
-        f [False,False,True]  = [False,False,False]  -- 0
-        f [False,True,False]  = [True,True,True]     -- 1
-        f [False,True,True]   = [False,False,False]  -- 0
-        f [True,False,False]  = [True,True,True]     -- 1
-        f [True,False,True]   = [False,False,False]  -- 0
-        f [True,True,False]   = [False,False,False]  -- 0
-        f [True,True,True]    = [True,True,True]     -- 1
+  where f [False,False,False] = [False]  -- 0
+        f [False,False,True]  = [False]  -- 0
+        f [False,True,False]  = [True]   -- 1
+        f [False,True,True]   = [False]  -- 0
+        f [True,False,False]  = [True]   -- 1
+        f [True,False,True]   = [False]  -- 0
+        f [True,True,False]   = [False]  -- 0
+        f [True,True,True]    = [True]   -- 1
 
 test4 :: Int -> IO ()
 test4 n = putStrLn $ runST $ do

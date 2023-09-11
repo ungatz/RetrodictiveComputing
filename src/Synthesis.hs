@@ -5,7 +5,7 @@ module Synthesis where
 
 import Data.List (elemIndices, intersect)
 import qualified Data.Sequence as S
-import Data.Sequence ((><))
+import Data.Sequence ((><), (|>), (<|))
 
 import GToffoli (GToffoli(GToffoli))
 import Circuits (OP)
@@ -118,11 +118,60 @@ synthesisGrover n (viewL -> (xs,y)) u =
 
 -- synthesis :: Int → [Var s v] → [Bool → Bool] → OP s v
 -- synthesis n xs f =
+f :: [Bool] -> [Bool]
+f [False,False] = [True]   -- 1
+f [False,True]  = [False]  -- 0
+f [True,False]  = [True]   -- 1
+f [True,True]   = [True]   -- 1
+
+synthesisNew :: Int -> [Var s v] -> ([Bool] -> [Bool]) -> OP s v
+synthesisNew n xs f = synthesisHelper xs (allBools n) (getC n f)
+
+synthesisHelper :: [Var s v] -> [[Bool]] -> [Bool] -> OP s v
+synthesisHelper xs bs c = generateCircuit (getANF c bs) xs
+
+generateCircuit :: [[Bool]] -> [Var s v] -> OP s v
+generateCircuit []      _ = S.empty
+generateCircuit (b:bs) xs = S.singleton (GToffoli b xs (whichX xs b)) ><  generateCircuit bs xs
+
+whichX :: [Var s v] -> [Bool] -> (Var s v)
+whichX (x:xs) (b:bs) = if b
+                       then x
+                       else whichX xs bs
+
+getANF :: [Bool] -> [[Bool]] -> [[Bool]]
+getANF []     _      = []
+getANF _      []     = []
+getANF (c:cs) (b:bs) = if c
+                       then b : getANF cs bs
+                       else getANF cs bs
 
 -- get c s.t T.c = vf
--- getC ∷ Int → ([Bool] → [Bool]) → [Bool]
--- getC n f = getCHelper vf mat where
---   mat = generateT (allBools n) (allBools n)
+getC ∷ Int → ([Bool] → [Bool]) → [Bool]
+getC n f = ntob $ getCHelper (generateT (allBools n) (allBools n)) (getVf f (allBools n))
+
+getVf :: ([Bool] -> [Bool]) -> [[Bool]] -> [Bool]
+getVf _ []     = []
+getVf f (x:xs) = f x ++ getVf f xs
+
+getCHelper :: [[Bool]] -> [Bool] -> [Int]
+getCHelper []     _  = []
+getCHelper (t:ts) vs = mod (rc (bton t) (bton vs)) 2 : getCHelper ts vs
+
+rc :: [Int] -> [Int] -> Int
+rc [] _ = 0
+rc (t:ts) (v:vs) = (t * v) + rc ts vs
+
+bton :: [Bool] -> [Int]
+bton []     = []
+bton (x:xs) = if x then 1 : bton xs
+                   else 0 : bton xs
+
+ntob :: [Int] -> [Bool]
+ntob []     = []
+ntob (x:xs) = if x == 1
+              then True : ntob xs
+              else False : ntob xs
 
 generateT :: [[Bool]] -> [[Bool]] -> [[Bool]]
 generateT []     [] = [[]]
@@ -135,7 +184,7 @@ dotProduct _ []     = []
 dotProduct x (u:us) = and (xi 0 x (ones u 0)) : dotProduct x us
 
 ones :: [Bool] -> Int -> [Int]
-ones  []    idx = []
+ones  []    _   = []
 ones (u:us) idx = if u
                   then idx : ones us (idx + 1)
                   else ones us (idx + 1)
