@@ -1,0 +1,384 @@
+
+./app/Main.hs,60
+module Main Main0,1
+main main10,11
+grover grover14,15
+
+./test/Spec.hs,156
+main main5,6
+one one15,16
+x x16,17
+y y17,18
+xy xy18,19
+f1 f120,21
+f2 f221,22
+f1xorf2 f1xorf223,24
+notf2 notf226,27
+f1andf2 f1andf229,30
+
+./src/QNumeric.hs,143
+module QNumeric QNumeric0,1
+toInt toInt5,6
+doublemods doublemods8,9
+sqmods sqmods11,12
+invmod invmod15,16
+invsqmods invsqmods22,23
+
+./src/ArithCirc.hs,234
+module ArithCirc ArithCirc0,1
+copyOP copyOP21,22
+carryOP carryOP24,25
+sumOP sumOP27,28
+makeAdder makeAdder30,31
+makeAdderMod makeAdderMod44,45
+makeCMulMod makeCMulMod62,63
+makeExpMod makeExpMod82,83
+expm expm108,109
+
+./src/Test/Synthesis.hs,141
+module Test.Synthesis Test.Synthesis0,1
+test1 test112,13
+test2 test219,20
+testNew testNew28,29
+test3 test344,45
+test4 test460,61
+
+./src/FormAsBitmaps.hs,1216
+module FormAsBitmaps FormAsBitmaps0,1
+type Literal Literal19,20
+newtype Ands Ands24,25
+newtype Ands = Ands { lits lits24,25
+instance Eq Eq Ands26,27
+  (A(Andsa1)27,28
+compAnds compAnds30,31
+instance Ord Ord Ands33,34
+  compare compare34,35
+instance Show Show Ands36,37
+  show show37,38
+(&(&&&)43,44
+(A(Andslits1)44,45
+type Occur Occur49,50
+type XORFU XORFU51,52
+type XORF XORF53,54
+newtype Formula Formula55,56
+newtype Formula = Formula { ands ands55,56
+instance Eq Eq Formula57,58
+  (F(Formulaf1)58,59
+instance Show Show Formula61,62
+  show show62,63
+normalizeF normalizeF67,68
+(*(***)74,75
+ands1 ands175,76
+mapF mapF94,95
+mapF2 mapF297,98
+(+(+++)103,104
+(F(Formulaands1)104,105
+anf anf114,115
+false false119,120
+true true122,123
+isStatic isStatic125,126
+fromBool fromBool128,129
+fromVar fromVar132,133
+fromVars fromVars135,136
+fnot fnot140,141
+fxor fxor143,144
+fand fand146,147
+instance Enum Enum Formula151,152
+  toEnum toEnum152,153
+  fromEnum fromEnum155,156
+instance Value Value Formula160,161
+  zero zero161,162
+  one one162,163
+  snot snot163,164
+  sand sand164,165
+  sxor sxor165,166
+formRepr formRepr169,170
+
+./src/Synthesis.hs,729
+module Synthesis Synthesis3,4
+viewL viewL18,19
+notI notI23,24
+notIs notIs27,28
+allBools allBools30,31
+synthesisStep synthesisStep42,43
+synthesisLoop synthesisLoop71,72
+synthesis synthesis78,79
+subsets subsets84,85
+allFuns allFuns89,90
+allBalancedFuns allBalancedFuns93,94
+synthesisGrover synthesisGrover112,113
+f f120,121
+synthesisNew synthesisNew126,127
+synthesisHelper synthesisHelper129,130
+generateCircuit generateCircuit132,133
+whichX whichX136,137
+getANF getANF141,142
+getC getC150,151
+getVf getVf152,153
+getCHelper getCHelper156,157
+rc rc160,161
+bton bton164,165
+ntob ntob169,170
+generateT generateT175,176
+dotProduct dotProduct181,182
+ones ones185,186
+xi xi191,192
+
+./src/PE.hs,61
+module PE PE0,1
+peG peG17,18
+pe pe28,29
+run run31,32
+
+./src/Simple.hs,101
+module Simple Simple0,1
+generate generate6,7
+test test9,10
+find find12,13
+power power17,18
+
+./src/EvalZ.hs,441
+module EvalZ EvalZ0,1
+newtype ZValue ZValue20,21
+instance Enum Enum ZValue22,23
+  toEnum toEnum23,24
+  fromEnum fromEnum25,26
+instance Show Show ZValue28,29
+  show show29,30
+instance Value Value ZValue31,32
+  zero zero32,33
+  one one33,34
+  snot snot34,35
+  sand sand35,36
+  sxor sxor36,37
+controlsActive controlsActive41,42
+interpGT interpGT44,45
+interp interp50,51
+run run53,54
+runExpMod runExpMod59,60
+
+./src/PEO.hs,130
+module PEO PEO0,1
+peG peG22,23
+pe pe36,37
+run run39,40
+normalize normalize45,46
+myxor myxor68,69
+myxor' myxor'75,76
+
+./src/Value.hs,387
+class (Show v, Enum v) => Value Value12,13
+  zero zero13,14
+  one one14,15
+  snot snot15,16
+  sand sand16,17
+  sxor sxor17,18
+  snand snand20,21
+instance Value Value Bool25,26
+  zero zero26,27
+  one one27,28
+  snot snot28,29
+  sand sand29,30
+  sxor sxor30,31
+bin bin35,36
+fromInt fromInt43,44
+type Var Var54,55
+newVar newVar56,57
+newVars newVars59,60
+
+./src/Trace.hs,80
+module Trace Trace0,1
+debug debug7,8
+trace trace9,10
+traceM traceM12,13
+
+./src/QAlgos.hs,1762
+module QAlgos QAlgos2,3
+printResult printResult36,37
+mkGen mkGen48,49
+uf uf54,55
+deutschId, deutschNot, deutsch0, deutsch1 deutsch162,63
+deutschId, deutschNot, deutsch0,deutsch062,63
+deutschId, deutschNot,deutschNot62,63
+deutschId,deutschId62,63
+deutschNot deutschNot64,65
+deutsch0 deutsch065,66
+deutsch1 deutsch166,67
+retroDeutsch retroDeutsch68,69
+runRetroDeutsch runRetroDeutsch80,81
+deutschJozsaConstant0, deutschJozsaConstant1 deutschJozsaConstant185,86
+deutschJozsaConstant0,deutschJozsaConstant085,86
+deutschJozsaBal1, deutschJozsaBal2, deutschJozsaBal3 deutschJozsaBal386,87
+deutschJozsaBal1, deutschJozsaBal2,deutschJozsaBal286,87
+deutschJozsaBal1,deutschJozsaBal186,87
+deutschJozsaConstant0 deutschJozsaConstant088,89
+deutschJozsaConstant1 deutschJozsaConstant190,91
+deutschJozsaBal1 deutschJozsaBal192,93
+deutschJozsaBal2 deutschJozsaBal294,95
+deutschJozsaBal3 deutschJozsaBal397,98
+retroDeutschJozsa retroDeutschJozsa107,108
+runRetroDeutschJozsa runRetroDeutschJozsa120,121
+retroBernsteinVazirani retroBernsteinVazirani128,129
+runRetroBernsteinVazirani runRetroBernsteinVazirani144,145
+retroSimon retroSimon151,152
+runRetroSimon runRetroSimon167,168
+groverCircuit groverCircuit173,174
+retroGrover retroGrover186,187
+runRetroGrover runRetroGrover193,194
+retroGrover' retroGrover'199,200
+runRetroGrover' runRetroGrover'205,206
+predictGrover predictGrover211,212
+runGrover runGrover218,219
+timeRetroGrover timeRetroGrover223,224
+timings timings232,233
+shor21 shor21238,239
+retroShor21 retroShor21251,252
+runShor21 runShor21264,265
+runRetroShor21 runRetroShor21274,275
+expModCircuit expModCircuit283,284
+retroShor retroShor299,300
+runRetroShor runRetroShor319,320
+
+./src/ShorBase3.hs,332
+module ShorBase3 ShorBase30,1
+data Gate Gate17,18
+data Gate = X X17,18
+data Gate = X Int | SUM SUM17,18
+data Gate = X Int | SUM Int Int | CX CX17,18
+type State State19,20
+upd upd21,22
+delta delta25,26
+plus plus27,28
+inc inc30,31
+eval eval33,34
+evalC evalC38,39
+circ circ43,44
+qst qst46,47
+run run49,50
+
+./src/Circuits.hs,447
+module Circuits Circuits0,1
+type OP OP17,18
+showOP showOP19,20
+sizeOP sizeOP22,23
+showSizes showSizes28,29
+xop xop37,38
+cx cx40,41
+ncx ncx43,44
+ccx ccx46,47
+cncx cncx49,50
+cop cop52,53
+ncop ncop55,56
+ccop ccop58,59
+data Circuit Circuit84,85
+data Circuit s v = CircuitCircuit84,85
+  { op op85,86
+  , xs xs86,87
+  , ancillaIns ancillaIns87,88
+  , ancillaOuts ancillaOuts88,89
+  , ancillaVals ancillaVals89,90
+
+./src/FormAsMaps.hs,1206
+module FormAsMaps FormAsMaps0,1
+type Literal Literal17,18
+newtype Ands Ands22,23
+newtype Ands = Ands { lits lits22,23
+instance Eq Eq Ands24,25
+  (A(Andsa1)25,26
+compAnds compAnds28,29
+instance Ord Ord Ands31,32
+  compare compare32,33
+instance Show Show Ands34,35
+  show show35,36
+(&(&&&)39,40
+(A(Andslits1)40,41
+type Occur Occur45,46
+type XORFU XORFU47,48
+type XORF XORF49,50
+newtype Formula Formula51,52
+newtype Formula = Formula { ands ands51,52
+instance Eq Eq Formula53,54
+  (F(Formulaf1)54,55
+instance Show Show Formula58,59
+  show show59,60
+normalizeF normalizeF64,65
+(*(***)71,72
+ands1 ands172,73
+mapF mapF83,84
+mapF2 mapF286,87
+(+(+++)92,93
+(F(Formulaands1)93,94
+anf anf103,104
+false false108,109
+true true111,112
+isStatic isStatic114,115
+fromBool fromBool117,118
+fromVar fromVar121,122
+fromVars fromVars124,125
+fnot fnot129,130
+fxor fxor132,133
+fand fand135,136
+instance Enum Enum Formula140,141
+  toEnum toEnum141,142
+  fromEnum fromEnum144,145
+instance Value Value Formula149,150
+  zero zero150,151
+  one one151,152
+  snot snot152,153
+  sand sand153,154
+  sxor sxor154,155
+formRepr formRepr158,159
+
+./src/GToffoli.hs,108
+data GToffoli GToffoli14,15
+data GToffoli s v = GToffoli GToffoli14,15
+showGToffoli showGToffoli17,18
+
+./src/FormAsLists.hs,1001
+module FormAsLists FormAsLists0,1
+type Literal Literal14,15
+newtype Ands Ands19,20
+newtype Ands = Ands { lits lits19,20
+instance Show Show Ands22,23
+  show show23,24
+mapA mapA27,28
+(&(&&&)30,31
+(A(Andslits1)31,32
+(*(***)33,34
+ands1 ands134,35
+newtype Formula Formula39,40
+newtype Formula = Formula { ands ands39,40
+instance Show Show Formula42,43
+  show show43,44
+mapF mapF48,49
+mapF2 mapF251,52
+(+(+++)54,55
+(F(Formulaands1)55,56
+normalizeLits normalizeLits61,62
+normalizeAnds normalizeAnds66,67
+anf anf72,73
+false false77,78
+true true80,81
+isStatic isStatic83,84
+fromBool fromBool86,87
+fromVar fromVar90,91
+fromVars fromVars93,94
+fnot fnot98,99
+fxor fxor101,102
+fand fand104,105
+instance Enum Enum Formula109,110
+  toEnum toEnum110,111
+  fromEnum fromEnum113,114
+instance Value Value Formula118,119
+  zero zero119,120
+  one one120,121
+  snot snot121,122
+  sand sand122,123
+  sxor sxor123,124
+formRepr formRepr127,128
+
+./src/FormulaRepr.hs,127
+data FormulaRepr FormulaRepr12,13
+data FormulaRepr f r = FRFR12,13
+  { fromVar fromVar13,14
+  , fromVars fromVars14,15
