@@ -35,13 +35,17 @@ makeCMulMod makeCMulMod62,63
 makeExpMod makeExpMod82,83
 expm expm108,109
 
-./src/Test/Synthesis.hs,141
+./src/Test/Synthesis.hs,229
 module Test.Synthesis Test.Synthesis0,1
 test1 test112,13
 test2 test219,20
-testNew testNew28,29
-test3 test344,45
-test4 test460,61
+test1N test1N28,29
+test2N test2N35,36
+testNew testNew43,44
+testOld testOld59,60
+test3N test3N75,76
+test3 test391,92
+test4 test4107,108
 
 ./src/FormAsBitmaps.hs,1216
 module FormAsBitmaps FormAsBitmaps0,1
@@ -94,7 +98,7 @@ instance Value Value Formula160,161
   sxor sxor165,166
 formRepr formRepr169,170
 
-./src/Synthesis.hs,729
+./src/Synthesis.hs,725
 module Synthesis Synthesis3,4
 viewL viewL18,19
 notI notI23,24
@@ -107,22 +111,20 @@ subsets subsets84,85
 allFuns allFuns89,90
 allBalancedFuns allBalancedFuns93,94
 synthesisGrover synthesisGrover112,113
-f f120,121
-synthesisNew synthesisNew126,127
-synthesisHelper synthesisHelper129,130
-generateCircuit generateCircuit132,133
-whichX whichX136,137
-getANF getANF141,142
-getC getC150,151
-getVf getVf152,153
-getCHelper getCHelper156,157
-rc rc160,161
-bton bton164,165
-ntob ntob169,170
-generateT generateT175,176
-dotProduct dotProduct181,182
-ones ones185,186
-xi xi191,192
+synthesisNew synthesisNew118,119
+synthesisHelper synthesisHelper121,122
+generateCircuit generateCircuit124,125
+whichX whichX127,128
+getANF getANF130,131
+getC getC138,139
+getVf getVf140,141
+getCHelper getCHelper143,144
+sumProduct sumProduct146,147
+ntob ntob149,150
+generateT generateT152,153
+dotProduct dotProduct155,156
+generate1u generate1u158,159
+xi xi164,165
 
 ./src/PE.hs,61
 module PE PE0,1
