@@ -128,6 +128,7 @@ generateCircuit bs xs = foldr (\b y -> S.singleton (GToffoli b xs (whichX xs b))
 whichX :: [Var s v] -> [Bool] -> (Var s v)
 whichX (x:xs) (b:bs) = if b then x else whichX xs bs
 
+-- getANF cs bs = zipWith (\c b -> if c then b else []) cs bs
 getANF :: [Bool] -> [[Bool]] -> [[Bool]]
 getANF []     _      = []
 getANF _      []     = []
@@ -157,10 +158,7 @@ dotProduct :: [Bool] -> [[Bool]] -> [Bool]
 dotProduct x us = map (\u -> and (xi 0 x (generate1u u 0))) us
 
 generate1u :: [Bool] -> Int -> [Int]
-generate1u  []    _   = []
-generate1u (u:us) idx = if u
-                        then idx : generate1u us (idx + 1)
-                        else generate1u us (idx + 1)
+generate1u us idx = [idx | (u, idx) <- zip us [idx..], u]
 
 xi :: Int -> [Bool] -> [Int] -> [Bool]
 xi _   []     _    = []
