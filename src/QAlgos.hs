@@ -24,7 +24,7 @@ import ArithCirc (expm)
 import qualified EvalZ (interp,ZValue(..))
 import PE (run)
 import qualified PEO (run) -- for Grover
-import Synthesis (viewL,synthesis,synthesisGrover)
+import Synthesis (viewL,synthesisNew,synthesis,synthesisGrover)
 import QNumeric (toInt)
 import FormulaRepr (FormulaRepr(..))
 import qualified FormAsLists as FL
@@ -66,11 +66,17 @@ deutschNot [x,y] = [x,y /= not x]
 deutsch0 [x,y]   = [x,y]
 deutsch1 [x,y]   = [x,not y]
 
+deutschIdN [x]  = [x]
+deutschNotN [x]   = [not x]
+
+deutsch0N [x] = []
+deutsch1N [x]  = [x /= not x]
+
 retroDeutsch :: (Show f, Value f) => FormulaRepr f r -> r -> ([Bool] -> [Bool]) -> IO ()
 retroDeutsch fr base f = print $ runST $ do
   x <- newVar (fromVar fr base)
   y <- newVar zero
-  run Circuit { op = synthesis 2 [x,y] f
+  run Circuit { op = synthesisNew 1 [x,y] f
               , xs = [x]
               , ancillaIns = [y]
               , ancillaOuts = [y]
@@ -105,12 +111,30 @@ deutschJozsaBal3 = uf f
         sbin = map (== '0') $ concatMap h2Str shex
         f xs = sbin !! fromInteger (toInt xs)
 
+deutschJozsaConstant0N = \[a] -> [False]
+deutschJozsaConstant1N = \[a] -> [True]
+deutschJozsaBal1N = \a -> [head a]
+
+deutschJozsaBal2N :: [Bool] -> [Bool]
+deutschJozsaBal2N = \a -> [foldr (/=) False a]
+
+deutschJozsaBal3N :: [Bool] -> [Bool]
+deutschJozsaBal3N = \a -> [f a]
+  where shex = "04511b5e37e23e6d"
+        h2Int :: Char -> Int
+        h2Int c = fst (head (readHex [c]))
+        h2Str :: Char -> String
+        h2Str c = printf "%04b" (h2Int c)
+        sbin :: [Bool]
+        sbin = map (== '0') $ concatMap h2Str shex
+        f xs = sbin !! fromInteger (toInt xs)
+
 retroDeutschJozsa :: (Show f, Value f) =>
                      FormulaRepr f r -> r -> Int -> ([Bool] -> [Bool]) -> IO ()
-retroDeutschJozsa fr base n f = print $ runST $ do
+retroDeutschJozsa fr base n f = print $ runST $ do -- sysnthesisNew works only with n=1.
   xs <- newVars (fromVars fr n base)
   y <- newVar zero
-  run Circuit { op = synthesis (n+1) (xs ++ [y]) f
+  run Circuit { op = synthesisNew n (xs ++ [y]) f
               , xs = xs
               , ancillaIns = [y]
               , ancillaOuts = [y]

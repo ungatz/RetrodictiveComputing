@@ -35,17 +35,26 @@ makeCMulMod makeCMulMod62,63
 makeExpMod makeExpMod82,83
 expm expm108,109
 
-./src/Test/Synthesis.hs,229
-module Test.Synthesis Test.Synthesis0,1
-test1 test112,13
-test2 test219,20
-test1N test1N28,29
-test2N test2N35,36
-testNew testNew43,44
-testOld testOld59,60
-test3N test3N75,76
-test3 test391,92
-test4 test4107,108
+./src/Test/Synthesis.hs,440
+module Test.Synthesis Test.Synthesis2,3
+viewL viewL20,21
+uf uf23,24
+notGateTest notGateTest26,27
+notGateTestN notGateTestN35,36
+test1 test144,45
+test1N test1N51,52
+test2 test258,59
+test2N test2N66,67
+testNew testNew74,75
+testOld testOld91,92
+test3 test3109,110
+test4 test4125,126
+test4N test4N132,133
+parity parity139,140
+test5N test5N142,143
+test5 test5159,160
+test6N test6N176,177
+test6 test6193,194
 
 ./src/FormAsBitmaps.hs,1216
 module FormAsBitmaps FormAsBitmaps0,1
@@ -98,33 +107,34 @@ instance Value Value Formula160,161
   sxor sxor165,166
 formRepr formRepr169,170
 
-./src/Synthesis.hs,725
+./src/Synthesis.hs,738
 module Synthesis Synthesis3,4
 viewL viewL18,19
 notI notI23,24
 notIs notIs27,28
 allBools allBools30,31
-synthesisStep synthesisStep42,43
-synthesisLoop synthesisLoop71,72
-synthesis synthesis78,79
-subsets subsets84,85
-allFuns allFuns89,90
-allBalancedFuns allBalancedFuns93,94
-synthesisGrover synthesisGrover112,113
-synthesisNew synthesisNew118,119
-synthesisHelper synthesisHelper121,122
-generateCircuit generateCircuit124,125
-whichX whichX127,128
-getANF getANF130,131
-getC getC138,139
-getVf getVf140,141
-getCHelper getCHelper143,144
-sumProduct sumProduct146,147
-ntob ntob149,150
-generateT generateT152,153
-dotProduct dotProduct155,156
-generate1u generate1u158,159
-xi xi164,165
+uf uf35,36
+synthesisStep synthesisStep44,45
+synthesisLoop synthesisLoop73,74
+synthesis synthesis80,81
+subsets subsets86,87
+allFuns allFuns91,92
+allBalancedFuns allBalancedFuns95,96
+synthesisGrover synthesisGrover114,115
+synthesisNew synthesisNew120,121
+synthesisHelper synthesisHelper123,124
+generateCircuit generateCircuit126,127
+whichX whichX132,133
+getANF getANF138,139
+getC getC146,147
+getVf getVf148,149
+getCHelper getCHelper151,152
+sumProduct sumProduct154,155
+ntob ntob157,158
+generateT generateT160,161
+dotProduct dotProduct163,164
+generate1u generate1u167,168
+xi xi172,173
 
 ./src/PE.hs,61
 module PE PE0,1
@@ -194,7 +204,7 @@ debug debug7,8
 trace trace9,10
 traceM traceM12,13
 
-./src/QAlgos.hs,1762
+./src/QAlgos.hs,2125
 module QAlgos QAlgos2,3
 printResult printResult36,37
 mkGen mkGen48,49
@@ -206,40 +216,49 @@ deutschId,deutschId62,63
 deutschNot deutschNot64,65
 deutsch0 deutsch065,66
 deutsch1 deutsch166,67
-retroDeutsch retroDeutsch68,69
-runRetroDeutsch runRetroDeutsch80,81
-deutschJozsaConstant0, deutschJozsaConstant1 deutschJozsaConstant185,86
-deutschJozsaConstant0,deutschJozsaConstant085,86
-deutschJozsaBal1, deutschJozsaBal2, deutschJozsaBal3 deutschJozsaBal386,87
-deutschJozsaBal1, deutschJozsaBal2,deutschJozsaBal286,87
-deutschJozsaBal1,deutschJozsaBal186,87
-deutschJozsaConstant0 deutschJozsaConstant088,89
-deutschJozsaConstant1 deutschJozsaConstant190,91
-deutschJozsaBal1 deutschJozsaBal192,93
-deutschJozsaBal2 deutschJozsaBal294,95
-deutschJozsaBal3 deutschJozsaBal397,98
-retroDeutschJozsa retroDeutschJozsa107,108
-runRetroDeutschJozsa runRetroDeutschJozsa120,121
-retroBernsteinVazirani retroBernsteinVazirani128,129
-runRetroBernsteinVazirani runRetroBernsteinVazirani144,145
-retroSimon retroSimon151,152
-runRetroSimon runRetroSimon167,168
-groverCircuit groverCircuit173,174
-retroGrover retroGrover186,187
-runRetroGrover runRetroGrover193,194
-retroGrover' retroGrover'199,200
-runRetroGrover' runRetroGrover'205,206
-predictGrover predictGrover211,212
-runGrover runGrover218,219
-timeRetroGrover timeRetroGrover223,224
-timings timings232,233
-shor21 shor21238,239
-retroShor21 retroShor21251,252
-runShor21 runShor21264,265
-runRetroShor21 runRetroShor21274,275
-expModCircuit expModCircuit283,284
-retroShor retroShor299,300
-runRetroShor runRetroShor319,320
+deutschIdN deutschIdN68,69
+deutschNotN deutschNotN69,70
+deutsch0N deutsch0N71,72
+deutsch1N deutsch1N72,73
+retroDeutsch retroDeutsch74,75
+runRetroDeutsch runRetroDeutsch86,87
+deutschJozsaConstant0, deutschJozsaConstant1 deutschJozsaConstant191,92
+deutschJozsaConstant0,deutschJozsaConstant091,92
+deutschJozsaBal1, deutschJozsaBal2, deutschJozsaBal3 deutschJozsaBal392,93
+deutschJozsaBal1, deutschJozsaBal2,deutschJozsaBal292,93
+deutschJozsaBal1,deutschJozsaBal192,93
+deutschJozsaConstant0 deutschJozsaConstant094,95
+deutschJozsaConstant1 deutschJozsaConstant196,97
+deutschJozsaBal1 deutschJozsaBal198,99
+deutschJozsaBal2 deutschJozsaBal2100,101
+deutschJozsaBal3 deutschJozsaBal3103,104
+deutschJozsaConstant0N deutschJozsaConstant0N113,114
+deutschJozsaConstant1N deutschJozsaConstant1N114,115
+deutschJozsaBal1N deutschJozsaBal1N115,116
+deutschJozsaBal2N deutschJozsaBal2N117,118
+deutschJozsaBal3N deutschJozsaBal3N120,121
+retroDeutschJozsa retroDeutschJozsa131,132
+runRetroDeutschJozsa runRetroDeutschJozsa144,145
+retroBernsteinVazirani retroBernsteinVazirani152,153
+runRetroBernsteinVazirani runRetroBernsteinVazirani168,169
+retroSimon retroSimon175,176
+runRetroSimon runRetroSimon191,192
+groverCircuit groverCircuit197,198
+retroGrover retroGrover210,211
+runRetroGrover runRetroGrover217,218
+retroGrover' retroGrover'223,224
+runRetroGrover' runRetroGrover'229,230
+predictGrover predictGrover235,236
+runGrover runGrover242,243
+timeRetroGrover timeRetroGrover247,248
+timings timings256,257
+shor21 shor21262,263
+retroShor21 retroShor21275,276
+runShor21 runShor21288,289
+runRetroShor21 runRetroShor21298,299
+expModCircuit expModCircuit307,308
+retroShor retroShor323,324
+runRetroShor runRetroShor343,344
 
 ./src/ShorBase3.hs,332
 module ShorBase3 ShorBase30,1

@@ -33,6 +33,8 @@ allBools 0 = [[]]
 allBools n = map (False :) bs ++ map (True :) bs
   where bs = allBools (n-1)
 
+uf :: ([Bool] -> Bool) -> ([Bool] -> [Bool])
+uf f (viewL -> (xs,y)) = xs ++ [f xs /= y]
 ------------------------------------------------------------------------------
 -- Algorithm
 
@@ -120,13 +122,18 @@ synthesisNew :: Int -> [Var s v] -> ([Bool] -> [Bool]) -> OP s v
 synthesisNew n xs f = synthesisHelper xs (allBools n) (getC n f)
 
 synthesisHelper :: [Var s v] -> [[Bool]] -> [Bool] -> OP s v
-synthesisHelper xs bs c = generateCircuit (getANF c bs) xs
+synthesisHelper xs bs c = generateCircuit (getANF c bs) (init xs) (last xs)
 
-generateCircuit :: [[Bool]] -> [Var s v] -> OP s v
-generateCircuit bs xs = foldr (\b y -> S.singleton (GToffoli b xs (whichX xs b)) >< y) S.empty bs
+generateCircuit :: [[Bool]] -> [Var s v] -> (Var s v) -> OP s v
+generateCircuit bs xs t = foldr (\b y -> S.singleton (GToffoli (filter (== True) b) (whichX xs b) t) >< y) S.empty bs
+-- generateCircuit bs xs t = foldr (\b y -> S.singleton (GToffoli (filter (== True) b) (filter (/= t) (whichX xs (filter (== True) b))) t) >< y) S.empty bs
+-- generateCircuit bs xs t = foldr (\b y -> S.singleton (GToffoli (filter (== True) b) (filter (/= t) (whichX xs b)) t) >< y) S.empty bs
+-- generateCircuit bs xs t = foldr (\b y -> S.singleton (GToffoli b xs t) >< y) S.empty bs
 
-whichX :: [Var s v] -> [Bool] -> (Var s v)
-whichX (x:xs) (b:bs) = if b then x else whichX xs bs
+whichX :: [Var s v] -> [Bool] -> [(Var s v)]
+whichX []     _      = []
+whichX _      []     = []
+whichX (x:xs) (b:bs) = if b then x : whichX xs bs else whichX xs bs
 
 -- getANF cs bs = zipWith (\c b -> if c then b else []) cs bs
 getANF :: [Bool] -> [[Bool]] -> [[Bool]]
@@ -157,9 +164,12 @@ generateT xs u = map (\x -> dotProduct x u) xs
 dotProduct :: [Bool] -> [[Bool]] -> [Bool]
 dotProduct x us = map (\u -> and (xi 0 x (generate1u u 0))) us
 
+-- get all the indices where u in (u:us) is 1.
 generate1u :: [Bool] -> Int -> [Int]
 generate1u us idx = [idx | (u, idx) <- zip us [idx..], u]
 
+-- if x and u have 1 at the same index then combine such
+-- xs to form xi.
 xi :: Int -> [Bool] -> [Int] -> [Bool]
 xi _   []     _    = []
 xi idx (x:xs) ones = if idx `elem` ones
